@@ -1,9 +1,13 @@
 package com.atguigu.online.education.common.base;
 
+import com.atguigu.online.education.common.util.FlinkSourceUtil;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.restartstrategy.RestartStrategies;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.RestOptions;
+import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.streaming.api.CheckpointingMode;
+import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
@@ -31,10 +35,23 @@ public abstract class BaseAPP {
         // 2.3 设置 两检查点 之间 最小时间间隔
         checkpointConfig.setMinPauseBetweenCheckpoints(2000L);
 
+        // 3. 从kafka读取数据
+        // 3.1 获取kafkaSource
+        KafkaSource<String> kafkaSource = FlinkSourceUtil.getKafkaSource(topic, ckAndGroupId);
+        // 3.2 将数据读取，封装为流
+        DataStreamSource<String> kafkaStrDS
+                = env.fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "kafka_source");
 
+        // 4. 业务逻辑
+        handle(env, kafkaStrDS);
 
-
-
-
+        // 5. 提交作业
+        try {
+            env.execute();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    public abstract void handle(StreamExecutionEnvironment env, DataStreamSource<String> kafkaStrDS);
 }

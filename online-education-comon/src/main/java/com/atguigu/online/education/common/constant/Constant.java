@@ -39,10 +39,4 @@ public class Constant {
     public static final String DORIS_FE_NODES = "hadoop102:7030";
 
     public static final String DORIS_DATABASE = "gmall0318_realtime";
-
-
-
-    public static final String KAFKA_BROKERS = "hadoop102:9092,hadoop103:9092,hadoop104:9092";
-
-    public static final String TOPIC_DWD_TRAFFIC_PAGE = "dwd_traffic_page";
 }

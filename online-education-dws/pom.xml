@@ -10,6 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>online-education-dws</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>online-education-dws-traffic-vc-ch-ar-is_new-page-view-window</module>
+    </modules>
 
     <dependencies>
         <dependency>

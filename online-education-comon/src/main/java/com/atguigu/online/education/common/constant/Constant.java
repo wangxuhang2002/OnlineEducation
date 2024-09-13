@@ -18,6 +18,7 @@ public class Constant {
 
     public static final String TOPIC_DWD_TRAFFIC_START = "dwd_traffic_start";
     public static final String TOPIC_DWD_TRAFFIC_ERR = "dwd_traffic_err";
+    public static final String TOPIC_DWD_TRAFFIC_APP_VIDEO = "dwd_traffic_app_video";
     public static final String TOPIC_DWD_TRAFFIC_PAGE = "dwd_traffic_page";
     public static final String TOPIC_DWD_TRAFFIC_ACTION = "dwd_traffic_action";
     public static final String TOPIC_DWD_TRAFFIC_DISPLAY = "dwd_traffic_display";

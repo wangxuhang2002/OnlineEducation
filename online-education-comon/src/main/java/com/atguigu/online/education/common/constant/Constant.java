@@ -37,6 +37,8 @@ public class Constant {
 
     public static final String TOPIC_DWD_USER_REGISTER = "dwd_user_register";
 
+    public static final String DWS_TRAFFIC_SOURCE_KEYWORD_PAGE_VIEW_WINDOW = "dws_traffic_source_keyword_page_view_window";
+
     public static final String DORIS_FE_NODES = "hadoop103:7030";
 
     public static final String DORIS_DATABASE = "gmall0318_realtime";

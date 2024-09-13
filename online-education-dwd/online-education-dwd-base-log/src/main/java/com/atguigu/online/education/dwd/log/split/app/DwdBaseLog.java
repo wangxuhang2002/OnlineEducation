@@ -185,16 +185,16 @@ public class DwdBaseLog extends BaseAPP {
 
         SideOutputDataStream<String> errDS = pageDS.getSideOutput(errTag);
         SideOutputDataStream<String> startDS = pageDS.getSideOutput(startTag);
-        SideOutputDataStream<String> appVideoDS = (SideOutputDataStream<String>) pageDS.getSideOutput(appVideoTag);
+        SideOutputDataStream<String> appVideoDS = pageDS.getSideOutput(appVideoTag);
         SideOutputDataStream<String> displayDS = pageDS.getSideOutput(displayTag);
         SideOutputDataStream<String> actionDS = pageDS.getSideOutput(actionTag);
 
-        pageDS.print("page:");
-        errDS.print("err:");
-        startDS.print("start:");
-        appVideoDS.print("appVideo:");
-        displayDS.print("display:");
-        actionDS.print("actionDS:");
+//        pageDS.print("page:");
+//        errDS.print("err:");
+//        startDS.print("start:");
+//        appVideoDS.print("appVideo:");
+//        displayDS.print("display:");
+//        actionDS.print("action:");
 
         pageDS.sinkTo(FlinkSinkUtil.getKafkaSink(Constant.TOPIC_DWD_TRAFFIC_PAGE));
         errDS.sinkTo(FlinkSinkUtil.getKafkaSink(Constant.TOPIC_DWD_TRAFFIC_ERR));

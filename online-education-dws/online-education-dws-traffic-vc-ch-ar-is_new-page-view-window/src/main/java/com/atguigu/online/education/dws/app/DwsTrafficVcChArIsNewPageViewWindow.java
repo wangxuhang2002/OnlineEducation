@@ -189,7 +189,7 @@ public class DwsTrafficVcChArIsNewPageViewWindow extends BaseAPP {
                         String curDate = DateFormatUtil.tsToDate(window.getStart());
 
                         trafficPageViewBean.setStt(stt);
-                        trafficPageViewBean.setEdt(stt);
+                        trafficPageViewBean.setEdt(edt);
                         trafficPageViewBean.setCur_date(curDate);
 
                         out.collect(trafficPageViewBean);

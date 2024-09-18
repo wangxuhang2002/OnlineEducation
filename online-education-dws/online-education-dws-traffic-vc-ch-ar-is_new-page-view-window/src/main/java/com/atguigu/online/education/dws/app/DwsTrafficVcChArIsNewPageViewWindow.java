@@ -17,7 +17,7 @@ import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;
 import org.apache.flink.api.common.time.Time;
 import org.apache.flink.api.java.functions.KeySelector;
-import org.apache.flink.api.java.tuple.Tuple4;
+import org.apache.flink.api.java.tuple.Tuple5;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.KeyedStream;
@@ -31,13 +31,13 @@ import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 
 
-public class DwsTrafficVcChArIsNewPageViewWindow extends BaseAPP {
+public class DwsTrafficScVcChArIsNewPageViewWindow extends BaseAPP {
 
     public static void main(String[] args) {
-        new DwsTrafficVcChArIsNewPageViewWindow().start(
+        new DwsTrafficScVcChArIsNewPageViewWindow().start(
                 10022,
                 4,
-                "dws_traffic_vc_ch_ar_is_new_page_view_window",
+                "dws_traffic_sc_vc_ch_ar_is_new_page_view_window",
                 Constant.TOPIC_DWD_TRAFFIC_PAGE
         );
     }
@@ -66,6 +66,7 @@ public class DwsTrafficVcChArIsNewPageViewWindow extends BaseAPP {
                     public void processElement(JSONObject jsonObj, KeyedProcessFunction<String, JSONObject, TrafficPageViewBean>.Context ctx, Collector<TrafficPageViewBean> out) throws Exception {
                         // ----->获取 流中数据<-----
                         JSONObject commonJsonObj = jsonObj.getJSONObject("common");
+                        String sc = commonJsonObj.getString("sc");
                         String vc = commonJsonObj.getString("vc");
                         String ch = commonJsonObj.getString("ch");
                         String ar = commonJsonObj.getString("ar");
@@ -91,6 +92,7 @@ public class DwsTrafficVcChArIsNewPageViewWindow extends BaseAPP {
                                 "",
                                 "",
                                 "",
+                                sc,
                                 vc,
                                 ch,
                                 ar,
@@ -151,11 +153,12 @@ public class DwsTrafficVcChArIsNewPageViewWindow extends BaseAPP {
                         )
         );
         // 8. 按 统计维度 分组
-        KeyedStream<TrafficPageViewBean, Tuple4<String, String, String, String>> dimKeyedDS = withWatermarkDS.keyBy(
-                new KeySelector<TrafficPageViewBean, Tuple4<String, String, String, String>>() {
+        KeyedStream<TrafficPageViewBean, Tuple5<String, String, String, String, String>> dimKeyedDS = withWatermarkDS.keyBy(
+                new KeySelector<TrafficPageViewBean, Tuple5<String, String, String, String, String>>() {
                     @Override
-                    public Tuple4<String, String, String, String> getKey(TrafficPageViewBean bean) throws Exception {
-                        return Tuple4.of(
+                    public Tuple5<String, String, String, String, String> getKey(TrafficPageViewBean bean) throws Exception {
+                        return Tuple5.of(
+                                bean.getSc(),
                                 bean.getVc(),
                                 bean.getCh(),
                                 bean.getAr(),
@@ -165,7 +168,7 @@ public class DwsTrafficVcChArIsNewPageViewWindow extends BaseAPP {
                 }
         );
         // 9. 开窗
-        WindowedStream<TrafficPageViewBean, Tuple4<String, String, String, String>, TimeWindow> windowDS = dimKeyedDS.window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.seconds(10)));
+        WindowedStream<TrafficPageViewBean, Tuple5<String, String, String, String, String>, TimeWindow> windowDS = dimKeyedDS.window(TumblingEventTimeWindows.of(org.apache.flink.streaming.api.windowing.time.Time.seconds(10)));
         // 10. 聚合计算
         SingleOutputStreamOperator<TrafficPageViewBean> reduceDS = windowDS.reduce(
                 new ReduceFunction<TrafficPageViewBean>() {
@@ -179,9 +182,9 @@ public class DwsTrafficVcChArIsNewPageViewWindow extends BaseAPP {
                         return value1;
                     }
                 },
-                new WindowFunction<TrafficPageViewBean, TrafficPageViewBean, Tuple4<String, String, String, String>, TimeWindow>() {
+                new WindowFunction<TrafficPageViewBean, TrafficPageViewBean, Tuple5<String, String, String, String, String>, TimeWindow>() {
                     @Override
-                    public void apply(Tuple4<String, String, String, String> stringStringStringStringTuple4, TimeWindow window, Iterable<TrafficPageViewBean> input, Collector<TrafficPageViewBean> out) throws Exception {
+                    public void apply(Tuple5<String, String, String, String, String> stringStringStringStringStringTuple5, TimeWindow window, Iterable<TrafficPageViewBean> input, Collector<TrafficPageViewBean> out) throws Exception {
                         TrafficPageViewBean trafficPageViewBean = input.iterator().next();
 
                         String stt = DateFormatUtil.tsToDateTime(window.getStart());
@@ -201,6 +204,6 @@ public class DwsTrafficVcChArIsNewPageViewWindow extends BaseAPP {
 
         SingleOutputStreamOperator<String> strDS = reduceDS.map(new BeanToJsonStrMapFunction<>());
 
-        strDS.sinkTo(FlinkSinkUtil.getDorisSink("dws_traffic_vc_ch_ar_is_new_page_view_window"));
+        strDS.sinkTo(FlinkSinkUtil.getDorisSink("dws_traffic_sc_vc_ch_ar_is_new_page_view_window"));
     }
 }

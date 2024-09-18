@@ -15,6 +15,8 @@ public class TrafficPageViewBean {
     private String edt;
     // 当天日期
     private String cur_date;
+    // 来源
+    private String sc;
     // app 版本号
     private String vc;
     // 渠道

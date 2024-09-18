@@ -4,7 +4,7 @@ import com.atguigu.online.education.bean.TrafficDurPerSession;
 import com.atguigu.online.education.bean.TrafficPvPerSession;
 import com.atguigu.online.education.bean.TrafficSvCt;
 import com.atguigu.online.education.bean.TrafficUvCt;
-import com.atguigu.online.education.service.TrafficStatsService;
+import com.atguigu.online.education.service.TrafficSourceStatsService;
 import com.atguigu.online.education.util.DateFormatUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +20,10 @@ import java.util.List;
  * 流量域统计Controller
  */
 @RestController
-public class TrafficStatsController {
+public class TrafficSourceStatsController {
     // 自动装载 流量域 统计服务类
     @Autowired
-    TrafficStatsService trafficStatsService;
+    TrafficSourceStatsService trafficSourceStatsService;
     // 拦截 某日 各来源 独立访客数 请求
     @RequestMapping("/sc/uvCt")
     public String getScUvCt(@RequestParam(value = "date", defaultValue = "1") Integer date) {
@@ -31,7 +31,7 @@ public class TrafficStatsController {
         if (date == 1) {
             date = DateFormatUtil.now();
         }
-        List<TrafficUvCt> trafficUvCtList = trafficStatsService.getScUvCt(date);
+        List<TrafficUvCt> trafficUvCtList = trafficSourceStatsService.getScUvCt(date);
         if (trafficUvCtList == null) {
             return "";
         }
@@ -76,7 +76,7 @@ public class TrafficStatsController {
         if (date == 1) {
             date = DateFormatUtil.now();
         }
-        List<TrafficSvCt> trafficSvCtList = trafficStatsService.getScSvCt(date);
+        List<TrafficSvCt> trafficSvCtList = trafficSourceStatsService.getScSvCt(date);
         if (trafficSvCtList == null) {
             return "";
         }
@@ -121,7 +121,7 @@ public class TrafficStatsController {
         if (date == 1) {
             date = DateFormatUtil.now();
         }
-        List<TrafficPvPerSession> trafficPvPerSessionList = trafficStatsService.getScPvPerSession(date);
+        List<TrafficPvPerSession> trafficPvPerSessionList = trafficSourceStatsService.getScPvPerSession(date);
         if (trafficPvPerSessionList == null) {
             return "";
         }
@@ -166,7 +166,7 @@ public class TrafficStatsController {
         if (date == 1) {
             date = DateFormatUtil.now();
         }
-        List<TrafficDurPerSession> trafficDurPerSessionList = trafficStatsService.getScDurPerSession(date);
+        List<TrafficDurPerSession> trafficDurPerSessionList = trafficSourceStatsService.getScDurPerSession(date);
         if (trafficDurPerSessionList == null) {
             return "";
         }

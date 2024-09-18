@@ -12,7 +12,7 @@ import java.util.List;
 
 // 流量域 统计 mapper 接口
 @Mapper
-public interface TrafficStatsMapper {
+public interface TrafficSourceStatsMapper {
     // 获取 某天 各来源 独立访客数
     @Select("select\n" +
             "    sc,\n" +

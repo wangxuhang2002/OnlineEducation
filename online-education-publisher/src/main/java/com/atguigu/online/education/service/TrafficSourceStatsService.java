@@ -12,7 +12,7 @@ import java.util.List;
  * @date 2024/9/10
  * 流量域统计service接口
  */
-public interface TrafficStatsService {
+public interface TrafficSourceStatsService {
     // 获取 某天 各来源 独立访客数
     List<TrafficUvCt> getScUvCt(Integer date);
     // 获取 某天 各来源 会话数

@@ -53,11 +53,6 @@ public class TrafficVisitorStatsController {
             }
         }
 
-        System.out.println(StringUtils.join(hrs, "\",\""));
-        System.out.println(StringUtils.join(uvArr, "\",\""));
-        System.out.println(StringUtils.join(pvArr, "\",\""));
-        System.out.println(StringUtils.join(pvPerSession, "\",\""));
-
         return "{\n" +
                 "  \"status\": 0,\n" +
                 "  \"msg\": \"\",\n" +

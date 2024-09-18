@@ -1,5 +1,7 @@
 package com.atguigu.online.education.common.base;
 
+import com.atguigu.online.education.common.constant.Constant;
+import com.atguigu.online.education.common.util.SQLUtil;
 import org.apache.flink.api.common.restartstrategy.RestartStrategies;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.RestOptions;
@@ -39,5 +41,18 @@ public abstract class BaseSQLApp {
 
     public abstract void handle(StreamExecutionEnvironment env, StreamTableEnvironment tableEnv);
 
+    public void readOdsDb(StreamTableEnvironment tableEnv,String groupId) {
+        tableEnv.executeSql("CREATE TABLE topic_db (\n" +
+                "  `database` string,\n" +
+                "  `table` string,\n" +
+                "  `type` string,\n" +
+                "  `data` map<string,string>,\n" +
+                "  `old` map<string,string>,\n" +
+                "  ts bigint,\n" +
+                "  pt as proctime(),\n" +
+                "  et as TO_TIMESTAMP_LTZ(ts, 0),\n" +
+                "  WATERMARK FOR et AS et \n" +
+                ") " + SQLUtil.getKafkaDDL(Constant.TOPIC_DB,groupId));
+    }
 
 }

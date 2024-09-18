@@ -1,5 +1,8 @@
 package com.atguigu.online.education.service.impl;
 
+import com.atguigu.online.education.bean.TrafficDurPerSession;
+import com.atguigu.online.education.bean.TrafficPvPerSession;
+import com.atguigu.online.education.bean.TrafficSvCt;
 import com.atguigu.online.education.service.TrafficStatsService;
 import com.atguigu.online.education.bean.TrafficUvCt;
 import com.atguigu.online.education.mapper.TrafficStatsMapper;
@@ -22,5 +25,20 @@ public class TrafficStatsServiceImpl implements TrafficStatsService {
     @Override
     public List<TrafficUvCt> getScUvCt(Integer date) {
         return trafficStatsMapper.selectScUvCt(date);
+    }
+
+    @Override
+    public List<TrafficSvCt> getScSvCt(Integer date) {
+        return trafficStatsMapper.selectScSvCt(date);
+    }
+
+    @Override
+    public List<TrafficPvPerSession> getScPvPerSession(Integer date) {
+        return trafficStatsMapper.selectScPvPerSession(date);
+    }
+
+    @Override
+    public List<TrafficDurPerSession> getScDurPerSession(Integer date) {
+        return trafficStatsMapper.selectScDurPerSession(date);
     }
 }

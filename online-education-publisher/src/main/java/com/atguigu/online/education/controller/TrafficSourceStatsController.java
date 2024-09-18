@@ -14,14 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 
-/**
- * @author Felix
- * @date 2024/9/10
- * 流量域统计Controller
- */
+// 流量域 来源统计 Controller
 @RestController
 public class TrafficSourceStatsController {
-    // 自动装载 流量域 统计服务类
+    // 自动装载 流量域 来源统计服务类
     @Autowired
     TrafficSourceStatsService trafficSourceStatsService;
     // 拦截 某日 各来源 独立访客数 请求

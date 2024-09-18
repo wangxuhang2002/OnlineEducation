@@ -36,7 +36,6 @@ public class DwdBaseLog extends BaseAPP {
 
     @Override
     public void handle(StreamExecutionEnvironment env, DataStreamSource<String> kafkaStrDS) {
-
         // 1. 分流 剔除 脏数据
         OutputTag<String> dirtyTag = new OutputTag<String>("dirtyTag") {
         };
@@ -189,12 +188,12 @@ public class DwdBaseLog extends BaseAPP {
         SideOutputDataStream<String> displayDS = pageDS.getSideOutput(displayTag);
         SideOutputDataStream<String> actionDS = pageDS.getSideOutput(actionTag);
 
-//        pageDS.print("page:");
-//        errDS.print("err:");
-//        startDS.print("start:");
-//        appVideoDS.print("appVideo:");
-//        displayDS.print("display:");
-//        actionDS.print("action:");
+        pageDS.print("page:");
+        errDS.print("err:");
+        startDS.print("start:");
+        appVideoDS.print("appVideo:");
+        displayDS.print("display:");
+        actionDS.print("action:");
 
         pageDS.sinkTo(FlinkSinkUtil.getKafkaSink(Constant.TOPIC_DWD_TRAFFIC_PAGE));
         errDS.sinkTo(FlinkSinkUtil.getKafkaSink(Constant.TOPIC_DWD_TRAFFIC_ERR));

@@ -46,6 +46,8 @@ public class DwsTrafficScVcChArIsNewPageViewWindow extends BaseAPP {
     public void handle(StreamExecutionEnvironment env, DataStreamSource<String> kafkaStrDS) {
         // 1. 将 json字符串 转为 json对象
         SingleOutputStreamOperator<JSONObject> jsonObjDS = kafkaStrDS.map(JSON::parseObject);
+
+//        jsonObjDS.print();
         // {"common":{"sc":"1","ar":"20","uid":"2554","os":"Android 11.0","ch":"wandoujia","is_new":"0","md":"Xiaomi 10 Pro ","mid":"mid_190","vc":"v2.1.132","ba":"Xiaomi","sid":"a051a278-0e0c-41bd-b175-53aa3001a675"},"page":{"page_id":"course_detail","item":"43","during_time":8357,"item_type":"course_id","last_page_id":"course_list"},"ts":1726196659028}
         // 2. 按 mid 分组
         KeyedStream<JSONObject, String> midKeyedDS = jsonObjDS.keyBy(jsonObj -> jsonObj.getJSONObject("common").getString("mid"));
@@ -77,7 +79,7 @@ public class DwsTrafficScVcChArIsNewPageViewWindow extends BaseAPP {
                         long uvCt = 0L;
                         String lastVisitDate = lastVisitDateState.value();
 
-                        Long ts = commonJsonObj.getLong("ts");
+                        Long ts = jsonObj.getLong("ts");
                         String curVisitDate = DateFormatUtil.tsToDate(ts);
 
                         if (StringUtils.isEmpty(lastVisitDate) || !lastVisitDate.equals(curVisitDate)) {

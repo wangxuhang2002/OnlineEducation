@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 // 流量域 来源统计 Controller
 @RestController
@@ -201,6 +202,17 @@ public class TrafficSourceStatsController {
                 "    ]\n" +
                 "  }\n" +
                 "}";
+    }
+    //查询 某日 各章节 播放人数 请求
+    @RequestMapping("/video")
+    public Map getProvinceAmount(@RequestParam(value = "date",defaultValue = "0") Integer date){
+        if(date == 0){
+            date = DateFormatUtil.now();
+        }
+        List<TrafficUvCt> chapterUvCt = trafficSourceStatsService.getChapterUvCt(date);
+        return null;
+
+
     }
 
 }

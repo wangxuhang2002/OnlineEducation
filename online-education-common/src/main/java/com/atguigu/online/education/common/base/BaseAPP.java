@@ -53,5 +53,5 @@ public abstract class BaseAPP {
         }
     }
 
-    public abstract void handle(StreamExecutionEnvironment env, DataStreamSource<String> kafkaStrDS);
+    public abstract void handle(StreamExecutionEnvironment env,  DataStreamSource<String> kafkaStrDS);
 }

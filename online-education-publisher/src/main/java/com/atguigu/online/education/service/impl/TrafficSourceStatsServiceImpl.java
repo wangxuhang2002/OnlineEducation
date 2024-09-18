@@ -37,4 +37,9 @@ public class TrafficSourceStatsServiceImpl implements TrafficSourceStatsService 
     public List<TrafficDurPerSession> getScDurPerSession(Integer date) {
         return trafficSourceStatsMapper.selectScDurPerSession(date);
     }
+
+    @Override
+    public List<TrafficUvCt> getChapterUvCt(Integer date) {
+        return trafficSourceStatsMapper.selectChapterUvCt(date);
+    }
 }

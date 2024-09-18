@@ -50,4 +50,14 @@ public interface TrafficSourceStatsMapper {
             "order by dur_per_session desc")
     List<TrafficDurPerSession> selectScDurPerSession(@Param("date") Integer date);
 
+    //获取 某天 各章节 观看人数
+    @Select("select\n" +
+            "    chapter_id,\n" +
+            "    sum(uv_ct) uv_ct\n" +
+            "from dws_traffic_chapter_page_view_window\n" +
+            "    partition (par#{date})\n" +
+            "group by chapter_id\n" +
+            "order by uv_ct desc")
+    List<TrafficUvCt> selectChapterUvCt(@Param("date") Integer date);
+
 }

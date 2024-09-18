@@ -21,4 +21,6 @@ public interface TrafficSourceStatsService {
     List<TrafficPvPerSession> getScPvPerSession(Integer date);
     // 获取 某天 各来源 会话平均页面访问时长
     List<TrafficDurPerSession> getScDurPerSession(Integer date);
+    //获取 某天 各章节 访问独立访客数
+    List<TrafficUvCt> getChapterUvCt(Integer date);
 }

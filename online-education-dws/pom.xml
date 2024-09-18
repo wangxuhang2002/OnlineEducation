@@ -18,6 +18,8 @@
         <module>online-education-dws-user-user-register-window</module>
         <module>online-education-dws-traffic-home-detail-page-view-window</module>
         <module>online-education-dws-trade-cart-add-uu-window</module>
+        <module>online-education-dws-player-chapter-count-window</module>
+        <module>online-education-dws-player-chapter-count-window</module>
     </modules>
 
     <dependencies>

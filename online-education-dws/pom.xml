@@ -23,7 +23,7 @@
     <dependencies>
         <dependency>
             <groupId>com.atguigu</groupId>
-            <artifactId>online-education-comon</artifactId>
+            <artifactId>online-education-common</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>

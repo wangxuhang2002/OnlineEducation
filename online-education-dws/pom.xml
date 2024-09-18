@@ -12,7 +12,7 @@
     <artifactId>online-education-dws</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>online-education-dws-traffic-vc-ch-ar-is_new-page-view-window</module>
+        <module>online-education-dws-traffic-sc-vc-ch-ar-is_new-page-view-window</module>
         <module>online-education-dws-traffic-source-keyword-page-view-window</module>
         <module>online-education-dws-DwsUserLoginWindow</module>
         <module>online-education-dws-user-user-register-window</module>

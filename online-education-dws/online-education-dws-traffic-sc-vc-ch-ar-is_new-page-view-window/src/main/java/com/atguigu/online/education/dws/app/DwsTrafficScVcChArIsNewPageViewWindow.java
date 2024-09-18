@@ -202,7 +202,7 @@ public class DwsTrafficScVcChArIsNewPageViewWindow extends BaseAPP {
                 }
         );
 
-//        reduceDS.print();
+        reduceDS.print();
 
         SingleOutputStreamOperator<String> strDS = reduceDS.map(new BeanToJsonStrMapFunction<>());
 

@@ -6,6 +6,7 @@ import com.atguigu.online.education.bean.TrafficSvCt;
 import com.atguigu.online.education.bean.TrafficUvCt;
 import com.atguigu.online.education.service.TrafficSourceStatsService;
 import com.atguigu.online.education.util.DateFormatUtil;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 // 流量域 来源统计 Controller
 @RestController
+@MapperScan("com.atguigu.online.education.mapper")
 public class TrafficSourceStatsController {
     // 自动装载 流量域 来源统计服务类
     @Autowired
@@ -66,7 +68,7 @@ public class TrafficSourceStatsController {
                 "  }\n" +
                 "}";
     }
-    // 拦截 某日 各来源 独立访客数 请求
+    // 拦截 某日 各来源 绘画总数 请求
     @RequestMapping("/sc/svCt")
     public String getScSvCt(@RequestParam(value = "date", defaultValue = "1") Integer date) {
         // 默认日期 设为 当日日期
@@ -104,14 +106,14 @@ public class TrafficSourceStatsController {
                 "    \"categories\":" + categories + ",\n" +
                 "    \"series\": [\n" +
                 "      {\n" +
-                "        \"name\": \"独立访客数\",\n" +
+                "        \"name\": \"绘画总数\",\n" +
                 "        \"data\": " + svCtValues + "\n" +
                 "      }\n" +
                 "    ]\n" +
                 "  }\n" +
                 "}";
     }
-    // 拦截 某日 各来源 独立访客数 请求
+    // 拦截 某日 各来源 会话平均浏览页面数 请求
     @RequestMapping("/sc/pvPerSession")
     public String getScPvPerSession(@RequestParam(value = "date", defaultValue = "1") Integer date) {
         // 默认日期 设为 当日日期
@@ -149,14 +151,14 @@ public class TrafficSourceStatsController {
                 "    \"categories\":" + categories + ",\n" +
                 "    \"series\": [\n" +
                 "      {\n" +
-                "        \"name\": \"独立访客数\",\n" +
+                "        \"name\": \"会话平均浏览页面数\",\n" +
                 "        \"data\": " + pvPerSessionValues + "\n" +
                 "      }\n" +
                 "    ]\n" +
                 "  }\n" +
                 "}";
     }
-    // 拦截 某日 各来源 独立访客数 请求
+    // 拦截 某日 各来源 会话平均停留时长 请求
     @RequestMapping("/sc/durPerSession")
     public String getScDurPerSession(@RequestParam(value = "date", defaultValue = "1") Integer date) {
         // 默认日期 设为 当日日期
@@ -194,7 +196,7 @@ public class TrafficSourceStatsController {
                 "    \"categories\":" + categories + ",\n" +
                 "    \"series\": [\n" +
                 "      {\n" +
-                "        \"name\": \"独立访客数\",\n" +
+                "        \"name\": \"会话平均停留时长\",\n" +
                 "        \"data\": " + durPerSessionValues + "\n" +
                 "      }\n" +
                 "    ]\n" +
